@@ -22,10 +22,28 @@
 
     <!-- TELA DO JOGO (Escritório) -->
     <div id="game-screen" class="screen hidden">
-        <div id="office">
-            <h2>12:00 AM</h2>
-            <button id="btn-cameras">Abrir Câmeras</button>
+        
+        <!-- O ambiente físico do escritório (Mesa, portas) -->
+        <div id="office-layout">
+            <div class="door-placeholder left">Porta Esq.</div>
+            <div class="desk-placeholder">MESA DO GUARDA</div>
+            <div class="door-placeholder right">Porta Dir.</div>
         </div>
+
+        <!-- A interface de usuário (UI) que fica por cima de tudo -->
+        <div id="ui-layer">
+            <div class="time-ui">
+                <span id="clock">12:00 AM</span><br>
+                <span id="night">Noite 1</span>
+            </div>
+            
+            <div class="battery-ui">
+                Energia: <span id="power">100%</span>
+            </div>
+
+            <button id="btn-cameras" class="camera-toggle">ABRIR CÂMERAS</button>
+        </div>
+
     </div>
 
     <script src="js/main.js"></script>

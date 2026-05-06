@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Nights at Geometry</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+    <!-- TELA DE MENU -->
+    <div id="menu-screen" class="screen active">
+        <h1 class="game-title">Five Nights at<br>Geometry</h1>
+        <div class="menu-options">
+            <button id="btn-new-game" class="menu-btn">New Game</button>
+            <button id="btn-continue" class="menu-btn">Continue</button>
+        </div>
+        <p class="copyright">© 2026 Arthur</p>
+    </div>
+
+    <!-- TELA DO JOGO (Escritório) -->
+    <div id="game-screen" class="screen hidden">
+        <div id="office">
+            <h2>12:00 AM</h2>
+            <button id="btn-cameras">Abrir Câmeras</button>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/menu.js"></script>
+</body>
+</html>

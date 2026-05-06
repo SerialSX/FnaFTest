@@ -1,0 +1,52 @@
+/* Centraliza tudo e cria o layout do menu */
+#menu-screen {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Alinha os itens para a esquerda, bem estilo FNAF */
+    padding-left: 10%; /* Dá um espaço da borda esquerda */
+    background-color: #050505; /* Um preto quase absoluto */
+}
+
+/* Estilo do título */
+.game-title {
+    font-size: 4rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3); /* Um brilho fantasmagórico leve */
+}
+
+/* Organiza os botões em coluna */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre os botões */
+    margin-bottom: 50px;
+}
+
+/* Tira a cara de botão de Windows e deixa parecendo texto clicável */
+.menu-btn {
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    font-family: inherit;
+    font-size: 2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s ease; /* Animação suave ao passar o mouse */
+}
+
+/* Efeito quando passa o mouse por cima (Hover) */
+.menu-btn:hover {
+    color: #ffffff;
+}
+
+/* Os direitos autorais lá no cantinho */
+.copyright {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1rem;
+    color: #555;
+}

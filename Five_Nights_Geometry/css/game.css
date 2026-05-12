@@ -168,3 +168,46 @@
 .cam-btn[data-cam="2"] { top: 100px; left: 50px; }
 .cam-btn[data-cam="3"] { top: 100px; right: 50px; }
 .cam-btn[data-cam="4"] { bottom: 40px; left: 120px; }
+
+/* Estação da Porta (Agrupa a porta e os botões) */
+.door-station {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Moldes das portas */
+.door-placeholder {
+    width: 150px;
+    height: 50vh;
+    border: 3px dashed #ffffff; /* Porta aberta (Tracejado) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+/* Estado da porta FECHADA */
+.door-placeholder.closed {
+    border: 3px solid #ff0000; /* Borda sólida vermelha */
+    background-color: #330000; /* Fundo preenchido */
+    color: #ff0000;
+}
+
+/* Botões do Escritório */
+.office-btn {
+    padding: 10px;
+    background-color: #111;
+    color: #fff;
+    border: 2px solid #fff;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.office-btn:hover { background-color: #333; }
+.office-btn.active { background-color: #fff; color: #000; }

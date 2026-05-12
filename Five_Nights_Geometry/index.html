@@ -12,6 +12,7 @@
 
     <!-- TELA DE MENU -->
     <div id="menu-screen" class="screen active">
+        <div class="static-overlay"></div>
         <h1 class="game-title">Five Nights at<br>Geometry</h1>
         <div class="menu-options">
             <button id="btn-new-game" class="menu-btn">New Game</button>
@@ -25,9 +26,23 @@
         
         <!-- O ambiente físico do escritório (Mesa, portas) -->
         <div id="office-layout">
-            <div class="door-placeholder left">Porta Esq.</div>
+            
+            <div class="door-station">
+                <div id="door-left" class="door-placeholder">PORTA ABERTA</div>
+                <div class="controls">
+                    <button id="btn-door-left" class="office-btn">FECHAR PORTA</button>
+                    </div>
+            </div>
+
             <div class="desk-placeholder">MESA DO GUARDA</div>
-            <div class="door-placeholder right">Porta Dir.</div>
+
+            <div class="door-station">
+                <div id="door-right" class="door-placeholder">PORTA ABERTA</div>
+                <div class="controls">
+                    <button id="btn-door-right" class="office-btn">FECHAR PORTA</button>
+                </div>
+            </div>
+
         </div>
 
         <!-- A interface de usuário (UI) que fica por cima de tudo -->
@@ -59,6 +74,7 @@
         </div>
     </div>
     
+    <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
     <script src="js/main.js"></script>
     <script src="js/menu.js"></script>

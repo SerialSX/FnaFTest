@@ -78,3 +78,15 @@
         text-shadow: none;
     }
 }
+
+.static-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://media1.tenor.com/m/T9lxlTwR_JIAAAAC/tv-static.gif'); /* GIF provisório da internet */
+    opacity: 0.05; /* Bem fraquinho só para dar o clima */
+    pointer-events: none; /* Faz o clique do mouse "atravessar" a estática */
+    z-index: 100; /* Garante que fica por cima de tudo */
+}

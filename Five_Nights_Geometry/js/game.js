@@ -4,15 +4,58 @@ let power = 100;
 let clockInterval;
 let powerInterval;
 
+
 // Capturando os elementos da tela
 const clockDisplay = document.getElementById('clock');
 const powerDisplay = document.getElementById('power');
+
+// --- SISTEMA DE PORTAS ---
+const doorLeft = document.getElementById('door-left');
+const doorRight = document.getElementById('door-right');
+const btnDoorLeft = document.getElementById('btn-door-left');
+const btnDoorRight = document.getElementById('btn-door-right');
+
+let isLeftDoorClosed = false;
+let isRightDoorClosed = false;
+
+// Botão da Porta Esquerda
+btnDoorLeft.addEventListener('click', () => {
+    isLeftDoorClosed = !isLeftDoorClosed; // Inverte o estado
+    
+    if (isLeftDoorClosed) {
+        doorLeft.classList.add('closed');
+        doorLeft.innerText = "FECHADA";
+        btnDoorLeft.classList.add('active');
+    } else {
+        doorLeft.classList.remove('closed');
+        doorLeft.innerText = "PORTA ABERTA";
+        btnDoorLeft.classList.remove('active');
+    }
+});
+
+// Botão da Porta Direita
+btnDoorRight.addEventListener('click', () => {
+    isRightDoorClosed = !isRightDoorClosed;
+    
+    if (isRightDoorClosed) {
+        doorRight.classList.add('closed');
+        doorRight.innerText = "FECHADA";
+        btnDoorRight.classList.add('active');
+    } else {
+        doorRight.classList.remove('closed');
+        doorRight.innerText = "PORTA ABERTA";
+        btnDoorRight.classList.remove('active');
+    }
+});
 
 // Função que inicia a noite
 function startNoite() {
     hour = 0;
     power = 100;
     updateDisplays();
+
+    squareInterval = setInterval(updateSquareAI, 4000);
+    triangleInterval = setInterval(updateTriangleAI, 7000);
 
     // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
     clockInterval = setInterval(() => {
@@ -24,13 +67,23 @@ function startNoite() {
         }
     }, 5000); 
 
-    // Loop da Bateria: Drena 1% de energia a cada 1 segundo
     powerInterval = setInterval(() => {
         if (power > 0) {
-            power--;
+            let drainAmount = 1; 
+            
+            // Cada porta fechada gasta +1
+            if (isLeftDoorClosed) drainAmount += 1;
+            if (isRightDoorClosed) drainAmount += 1;
+            
+            // Se o tablet das câmeras estiver aberto, gasta +1 (se já tiver implementado)
+            // if (isCameraOpen) drainAmount += 1;
+
+            power -= drainAmount;
+            
+            if(power < 0) power = 0; 
             updateDisplays();
         } else {
-            runOutPower();
+            runOutPower(); // Acabou a energia!
         }
     }, 1000);
 }

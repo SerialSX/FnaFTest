@@ -14,7 +14,8 @@ function startGame() {
     gameScreen.classList.add('active');
     
     console.log("Noite 1 iniciada...");
-    // Aqui no futuro chamaremos: initGameLoop() ou startClock()
+    
+    startNoite();
 }
 
 // Evento de clique no botão

@@ -2,9 +2,23 @@
 #menu-screen {
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start; /* Alinha os itens para a esquerda, bem estilo FNAF */
-    padding-left: 10%; /* Dá um espaço da borda esquerda */
-    background-color: #050505; /* Um preto quase absoluto */
+    align-items: flex-start;
+    padding-left: 10%;
+    
+    /* TRUQUE DA OPACIDADE: O linear-gradient aplica uma película preta de 30% sobre a imagem */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../assets/Menu.png'); 
+    
+    background-size: cover; 
+    background-position: 295px 0px; /* Mantive o seu ajuste de posição! */
+    background-repeat: no-repeat;
+    background-color: #000; /* Fundo base preto */
+}
+
+/* Criando a classe que o JavaScript vai ativar para o Glitch */
+#menu-screen.glitched {
+    background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%),
+        url('../assets/Menu_.png');
 }
 
 /* Estilo do título */

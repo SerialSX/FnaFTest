@@ -82,3 +82,89 @@
     background-color: #ffffff;
     color: #000000;
 }
+
+/* --- SISTEMA DE CÂMERAS --- */
+#camera-system {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #111;
+    z-index: 10; /* Fica por cima do escritório */
+    display: flex;
+}
+
+/* Onde a imagem da câmera aparece */
+#camera-view {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    
+    /* AQUI VOCÊ VAI COLOCAR A IMAGEM DA CÂMERA 1 COMO PADRÃO 
+       Exemplo: background-image: url('../assets/images/cam1_normal.png');
+    */
+    background-color: #222; /* Cor provisória enquanto não tem imagem */
+}
+
+/* Efeito de TV Antiga / Chiado */
+.static-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1; /* Bem fraquinho para não cegar o jogador */
+    pointer-events: none;
+    /* AQUI VOCÊ PODE COLOCAR UM GIF DE ESTÁTICA COM FUNDO TRANSPARENTE
+       Exemplo: background-image: url('../assets/images/chiado.gif');
+    */
+}
+
+#camera-name {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    color: #fff;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* --- MAPA E BOTÕES --- */
+#camera-map {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 300px;
+    height: 300px;
+    border: 2px solid #555;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* SE QUISER UM DESENHO DE PLANTA BAIXA NO FUNDO DO MAPA:
+       background-image: url('../assets/images/mapa_layout.png');
+    */
+}
+
+.cam-btn {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Estilo para quando a câmera estiver selecionada */
+.cam-btn.active-cam {
+    background-color: #00ff00; /* Verde clássico de monitor */
+    color: #000;
+}
+
+/* Posicionamento manual dos botões no mapa (Ajuste conforme o seu desenho) */
+.cam-btn[data-cam="1"] { top: 20px; left: 120px; }
+.cam-btn[data-cam="2"] { top: 100px; left: 50px; }
+.cam-btn[data-cam="3"] { top: 100px; right: 50px; }
+.cam-btn[data-cam="4"] { bottom: 40px; left: 120px; }

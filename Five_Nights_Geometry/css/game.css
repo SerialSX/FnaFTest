@@ -254,10 +254,14 @@
     position: relative;
     flex-direction: column;
     gap: 10px;
+    pointer-events: none;
 }
 
 .desk-item {
-    pointer-events: auto;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 60;
+    cursor: pointer;
     background-color: #1a1a1a;
     color: #ffcc66;
     border: 2px solid #ffcc66;

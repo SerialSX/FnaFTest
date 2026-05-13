@@ -5,7 +5,7 @@
 
 const HEXAGON_CONFIG = {
     maxLayers: 5,
-    tickMs: 12000,
+    tickMs: 20000,
     attackThreshold: 70,
 };
 

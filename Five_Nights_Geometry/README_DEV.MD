@@ -51,7 +51,7 @@ Você é um programador desenvolvendo o software, o sistema de segurança e as I
   - Comandos de reparo de sistema: ex. `fix camera`, `unjam door_left`, `sync clock`, `seal power_leak`.
   - Comando de restauração: `restore_firewall` → abre o Puzzle de Circuito.
 
-- [ ] **Puzzle de Circuito Lógico (restaurar 1 camada):**
+- [x] **Puzzle de Circuito Lógico (restaurar 1 camada):**
   - Mostra uma tabela-verdade alvo (2 entradas A, B → coluna de saída).
   - Mostra opções de portas lógicas: `AND`, `OR`, `XOR`, `NAND`, `NOR`, `XNOR`.
   - O jogador clica a porta que produz a saída alvo.

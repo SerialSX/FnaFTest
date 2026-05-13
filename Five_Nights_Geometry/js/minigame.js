@@ -27,31 +27,41 @@ function embaralharLista(lista) {
 
 // 2. A função que vai disparar o minigame
 function startTerminalMinigame() {
-    console.log("ALERTA: VÍRUS DETECTADO! Iniciando minigame do Terminal...");
-    // Troca as telas: esconde o jogo e mostra o terminal
-    document.getElementById('game-screen').classList.replace('active', 'hidden');
-    document.getElementById('terminal-screen').classList.replace('hidden', 'active');
-    
-    let maoDoJogador = []; // Nossa "caixa temporária"
+    // 1. Abre o terminal flutuante do Lauan
+    document.getElementById('terminal-overlay').classList.remove('hidden');
 
-    // Passo 1: Pescando 8 palavras normais aleatórias
+    let maoDoJogador = [];
     for(let i = 0; i < 8; i++) {
         let randomIndex = Math.floor(Math.random() * palavrasNormais.length);
         maoDoJogador.push(palavrasNormais[randomIndex]);
     }
-
-    // Passo 2: Pescando 1 palavra de erro (O Impostor)
+    
     let randomErrorIndex = Math.floor(Math.random() * palavrasErro.length);
     let palavraInfectada = palavrasErro[randomErrorIndex];
     maoDoJogador.push(palavraInfectada);
-
-    // Passo 3: Embaralha as 9 palavras!
     maoDoJogador = embaralharLista(maoDoJogador);
 
-    // Passo 4: Mostrando no F12 para a gente ver funcionando (Amanhã jogamos isso na tela)
-    console.log("--- TELA DO TERMINAL ---");
-    console.log(maoDoJogador);
-    console.log("-> O Jogador precisa encontrar e clicar em: " + palavraInfectada);
+    // 2. Seleciona a tela do Lauan e injeta as palavras
+    const terminalOutput = document.getElementById('terminal-output');
+    terminalOutput.innerHTML = '<p style="color:red; text-shadow:none;">SISTEMA CORROMPIDO. SELECIONE A ANOMALIA:</p>';
+
+    maoDoJogador.forEach(palavra => {
+        let span = document.createElement('span');
+        span.innerText = palavra;
+        span.className = 'palavra-minigame'; 
+        
+        span.onclick = () => {
+            if (palavra === palavraInfectada) {
+                // ACERTOU! Esconde o terminal e limpa a tela
+                document.getElementById('terminal-overlay').classList.add('hidden');
+                terminalOutput.innerHTML = ''; // Limpa pra não bugar o terminal depois
+                console.log("Sistema restaurado.");
+            } else {
+                alert("ACESSO NEGADO! SINTAXE VÁLIDA DETECTADA.");
+            }
+        };
+        terminalOutput.appendChild(span);
+    });
 }
 
 // O botão "Open Terminal" que aparece no escritório

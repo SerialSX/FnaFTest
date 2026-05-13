@@ -82,39 +82,3 @@ function triggerJumpscare(monstro) {
 // ==========================================
 // IA DO CIRCULO AMARELO (Em construção)
 // ==========================================
-
-
-
-// ==========================================
-// IA DO HEXÁGONO CIANO (O Vírus de Sistema)
-// ==========================================
-
-let hexagonBypasses = 5; // As 5 salva-guardas do container
-let hexagonInterval;     // O cronômetro dele
-
-function updateHexagonAI() {
-    // Rola um dado de 0 a 150 (Math.random() * 151 garante que o 150 entra na conta)
-    let rng = Math.floor(Math.random() * 151); 
-    
-    console.log(`[HEXÁGONO] Rolou RNG: ${rng}`);
-
-    if (rng <= 89) {
-        // 0 a 89: Nada acontece
-        console.log("[HEXÁGONO] Contido no container.");
-        
-    } else if (rng <= 149) {
-        // 90 a 149: Quebra 1 Bypass
-        if (hexagonBypasses > 0) {
-            hexagonBypasses--;
-            console.log(`[HEXÁGONO] ALERTA: Quebrou 1 bypass! Bypasses restantes: ${hexagonBypasses}`);
-        } else {
-            console.log("[HEXÁGONO] PERIGO! O container já estava sem defesas! Ele infectou o sistema!");
-            // (Futuramente: Aqui ele vai quebrar a câmera ou a porta)
-        }
-        
-    } else {
-        // 150: Ataque Crítico!
-        console.log("[HEXÁGONO] ATAQUE CRÍTICO (150)!!! REQUER OVERRIDE IMEDIATO!");
-        // (Futuramente: Tocar som de alarme, piscar a tela e dar 5 segundos pro jogador digitar)
-    }
-}

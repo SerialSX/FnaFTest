@@ -206,9 +206,17 @@ function renderNotebookPage() {
 }
 
 // ============ TERMINAL ============
+// ============ TERMINAL ============
 function openTerminal() {
     document.getElementById('terminal-overlay').classList.remove('hidden');
     setTimeout(() => document.getElementById('terminal-input').focus(), 50);
+
+    // MENSAGEM DE BOOT PARA NÃO PARECER VAZIO
+    const out = document.getElementById('terminal-output');
+    if (out.innerHTML === '') {
+        terminalEcho("GEOMETRY OS v1.0 ONLINE...", "line-ok");
+        terminalEcho("Sistemas estabilizados. Aguardando comando.", "line-info");
+    }
 }
 
 function closeTerminal() {

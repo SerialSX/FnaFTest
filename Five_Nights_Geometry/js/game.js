@@ -54,9 +54,12 @@ function startNoite() {
     power = 100;
     updateDisplays();
 
+    // LIGA AS IAs
     squareInterval = setInterval(updateSquareAI, 4000);
     triangleInterval = setInterval(updateTriangleAI, 7000);
 
+    // O HEXÁGONO BATE NA CELA A CADA 10 SEGUNDOS (10000 ms)
+    hexagonInterval = setInterval(updateHexagonAI, 10000);
     // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
     clockInterval = setInterval(() => {
         hour++;

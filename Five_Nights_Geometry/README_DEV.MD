@@ -18,28 +18,23 @@ Você é um programador desenvolvendo o software, o sistema de segurança e as I
 
 ---
 
-## 🚧 FASE 2: Inimigos Hackers e Minigames (EM ANDAMENTO)
+## ✅ FASE 2: Inimigos Hackers e Minigames (CONCLUÍDO)
 
 ### 🟡 Círculo Amarelo (O Vírus de Câmera)
 *Mecânica: Derruba o tablet de câmeras, deixando o jogador cego.*
-- [x] Lógica Matemática: Criar os arrays de "Palavras Normais" e "Palavras de Erro", pescando 8 normais e 1 corrompida e embaralhando tudo. (`minigame.js`)
-- [ ] Interface do Minigame: Criar a tela preta com as palavras jogadas na tela (efeito verde Matrix).
-- [ ] Ação do Jogador: Encontrar e clicar na "Palavra Corrompida" (Ex: *Banana_Core*) no meio das técnicas (Ex: *System_Boot*) para restaurar a visão.
+- [x] Lógica Matemática: Criar os arrays de "Palavras Normais" e "Palavras de Erro", pescando 8 normais e 1 corrompida e embaralhando tudo.
+- [x] Interface do Minigame: Criar a tela com as palavras jogadas na tela (efeito verde Matrix com z-index corrigido e overlays).
+- [x] Ação do Jogador: Encontrar e clicar na "Palavra Corrompida" no meio das técnicas para restaurar a visão/evitar punição.
 
 ### 🔷 Hexágono Ciano (O Vírus de Firewall)
-*Mecânica: Vírus tentando atravessar 5 camadas de Firewall/Antivirus para matar o jogador. A cada camada quebrada, um sistema do escritório falha. O jogador conserta os sistemas (códigos do Manual) **e** restaura as camadas (puzzle de circuito lógico) em paralelo.*
+*Mecânica: Vírus tentando atravessar 5 camadas de Firewall/Antivirus. A cada camada quebrada, um sistema do escritório falha. O jogador conserta os sistemas e restaura as camadas em paralelo.*
 
-- [ ] **Estado do Firewall:** 5 camadas. Se chegar a 0 → Hexágono mata o jogador (Game Over).
-- [ ] **IA do Hexágono (RNG a cada ~12s):**
-  - **0 a 70:** Contido (nada acontece).
-  - **71 a 100:** Quebra 1 camada → escolhe aleatoriamente 1 sistema para corromper.
-
-- [ ] **Sistemas que podem ser corrompidos:**
-  - `camera_offline` — Botão de câmeras desativado.
-  - `door_left_jammed` — Porta esquerda travada (não fecha/abre).
-  - `door_right_jammed` — Porta direita travada.
-  - `clock_glitch` — Relógio mostra caracteres embaralhados.
-  - `power_leak` — Bateria drena 2× mais rápido.
+- [x] **Estado do Firewall:** 5 camadas com renderização na HUD.
+- [x] **IA do Hexágono:** RNG configurado para quebrar camadas e corromper sistemas aleatórios.
+- [x] **Sistemas Corrompidos:** Câmeras off, portas travadas, relógio com glitch e vazamento de energia implementados.
+- [x] **O Manual:** Overlay físico na mesa com paginação e lista de códigos.
+- [x] **Terminal:** Tela interativa que aceita comandos (`fix camera`, `unjam door`, etc) e reflete os reparos no jogo.
+- [x] **Puzzle de Circuito Lógico:** Mini-game de portas lógicas (AND, OR, etc) para restaurar as camadas do Firewall funcionando.
 
 - [ ] **O Manual (Notebook físico na mesa):**
   - Objeto clicável na mesa do escritório (parece um caderno de papel).

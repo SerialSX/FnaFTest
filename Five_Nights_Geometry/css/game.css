@@ -198,6 +198,34 @@
     color: #ff0000;
 }
 
+/* Efeito do Alerta de Vírus na tela do jogo */
+#virus-alert {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(50, 0, 0, 0.9);
+    border: 3px solid #ff0000;
+    padding: 20px;
+    text-align: center;
+    z-index: 100;
+    animation: piscarAlerta 1s infinite alternate;
+}
+
+#virus-alert {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(50, 0, 0, 0.9);
+    border: 3px solid #ff0000;
+    padding: 20px;
+    text-align: center;
+    z-index: 100;
+    pointer-events: auto; /* <--- ADICIONE ISSO */
+    animation: piscarAlerta 1s infinite alternate;
+}
+
 /* Botões do Escritório */
 .office-btn {
     padding: 10px;

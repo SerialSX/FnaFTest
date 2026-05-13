@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/menu.css">
     <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/terminal.css">
 </head>
 <body>
 
@@ -52,6 +53,11 @@
                 <span id="night">Noite 1</span>
             </div>
             
+            <div id="virus-alert" class="hidden">
+                <p>⚠ ERROR: CAMERA FEED CORRUPTED ⚠</p>
+                <button id="btn-open-terminal" class="office-btn" style="border-color: red; color: red;">OPEN TERMINAL</button>
+            </div>
+
             <div class="battery-ui">
                 Energia: <span id="power">100%</span>
             </div>
@@ -73,12 +79,27 @@
             </div>
         </div>
     </div>
+
+    <div id="terminal-screen" class="screen hidden">
+        
+        <div class="scanlines"></div> 
+
+        <div id="terminal-content">
+            <h2 id="terminal-header">sys.admin@geometry-os:~$ <span class="blink">_</span></h2>
+            
+            <div id="terminal-body">
+                <p>Iniciando modo de segurança...</p>
+                <p>Aguardando conexão...</p>
+            </div>
+
+            <input type="text" id="terminal-input" class="hidden" placeholder="Digite o comando e aperte Enter..." autocomplete="off" spellcheck="false">
+        </div>
+    </div>    
     
-    
-    <script src="js/minigame.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
     <script src="js/main.js"></script>
     <script src="js/menu.js"></script>
+    <script src="js/minigame.js"></script>
 </body>
 </html>

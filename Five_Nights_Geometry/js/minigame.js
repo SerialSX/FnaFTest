@@ -28,6 +28,9 @@ function embaralharLista(lista) {
 // 2. A função que vai disparar o minigame
 function startTerminalMinigame() {
     console.log("ALERTA: VÍRUS DETECTADO! Iniciando minigame do Terminal...");
+    // Troca as telas: esconde o jogo e mostra o terminal
+    document.getElementById('game-screen').classList.replace('active', 'hidden');
+    document.getElementById('terminal-screen').classList.replace('hidden', 'active');
     
     let maoDoJogador = []; // Nossa "caixa temporária"
 
@@ -51,5 +54,15 @@ function startTerminalMinigame() {
     console.log("-> O Jogador precisa encontrar e clicar em: " + palavraInfectada);
 }
 
-// Tirar o comentário da linha abaixo só para testar agora rápido (Pode apagar amanhã)
-// startTerminalMinigame();
+// O botão "Open Terminal" que aparece no escritório
+const btnOpenTerminal = document.getElementById('btn-open-terminal');
+
+btnOpenTerminal.addEventListener('click', () => {
+    // Esconde o aviso de erro do escritório
+    document.getElementById('virus-alert').classList.add('hidden');
+    
+    // Dispara a função que criamos para abrir a tela preta e gerar as palavras
+    startTerminalMinigame();
+});
+
+document.getElementById('virus-alert').classList.remove('hidden');

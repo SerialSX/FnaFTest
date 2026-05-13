@@ -26,17 +26,37 @@ Você é um programador desenvolvendo o software, o sistema de segurança e as I
 - [ ] Interface do Minigame: Criar a tela preta com as palavras jogadas na tela (efeito verde Matrix).
 - [ ] Ação do Jogador: Encontrar e clicar na "Palavra Corrompida" (Ex: *Banana_Core*) no meio das técnicas (Ex: *System_Boot*) para restaurar a visão.
 
-### 🔷 Hexágono Ciano (O Vírus de Sistema)
-*Mecânica: Preso em um container virtual com 5 "Salva Guardas" (Bypasses). Ele tenta fugir constantemente.*
-- [ ] Lógica de Fuga (RNG a cada 10s):
-  - **0 a 89:** Contido (Nada acontece).
-  - **90 a 149:** Quebra 1 dos 5 Bypasses.
-  - **150:** Ataque Crítico! (Alerta vermelho na tela dando poucos segundos para o jogador reagir).
-- [ ] Terminal de Manutenção (Tela Fullscreen): O jogador precisa abrir o terminal para consertar o sistema.
-- [ ] Comandos do Terminal:
-  - `restore_bypass`: Conserta os bloqueios perdidos.
-  - `Restart Security System`: Prende o Hexágono novamente. Demora 5 segundos (tela apaga/reinicia, e o som de boot atrai a IA de volta pro container).
-  - `Override Security Bypass` **(Botão de Pânico)**: Cancela o Ataque Crítico (150). **Punição:** Dá um choque no gerador perdendo de 3% a 5% de energia instantaneamente E avança o Quadrado e o Triângulo uma casa em direção à porta!
+### 🔷 Hexágono Ciano (O Vírus de Firewall)
+*Mecânica: Vírus tentando atravessar 5 camadas de Firewall/Antivirus para matar o jogador. A cada camada quebrada, um sistema do escritório falha. O jogador conserta os sistemas (códigos do Manual) **e** restaura as camadas (puzzle de circuito lógico) em paralelo.*
+
+- [ ] **Estado do Firewall:** 5 camadas. Se chegar a 0 → Hexágono mata o jogador (Game Over).
+- [ ] **IA do Hexágono (RNG a cada ~12s):**
+  - **0 a 70:** Contido (nada acontece).
+  - **71 a 100:** Quebra 1 camada → escolhe aleatoriamente 1 sistema para corromper.
+
+- [ ] **Sistemas que podem ser corrompidos:**
+  - `camera_offline` — Botão de câmeras desativado.
+  - `door_left_jammed` — Porta esquerda travada (não fecha/abre).
+  - `door_right_jammed` — Porta direita travada.
+  - `clock_glitch` — Relógio mostra caracteres embaralhados.
+  - `power_leak` — Bateria drena 2× mais rápido.
+
+- [ ] **O Manual (Notebook físico na mesa):**
+  - Objeto clicável na mesa do escritório (parece um caderno de papel).
+  - Abre overlay paginado com a lista "Sistema Corrompido → Comando de Reparo".
+  - O jogador precisa **ler** o manual para descobrir qual comando digitar no terminal (não há atalho/UI mostrando).
+
+- [ ] **Terminal (Tela fullscreen):**
+  - Aberto pelo jogador (botão ou tecla `T`).
+  - Comandos de reparo de sistema: ex. `fix camera`, `unjam door_left`, `sync clock`, `seal power_leak`.
+  - Comando de restauração: `restore_firewall` → abre o Puzzle de Circuito.
+
+- [ ] **Puzzle de Circuito Lógico (restaurar 1 camada):**
+  - Mostra uma tabela-verdade alvo (2 entradas A, B → coluna de saída).
+  - Mostra opções de portas lógicas: `AND`, `OR`, `XOR`, `NAND`, `NOR`, `XNOR`.
+  - O jogador clica a porta que produz a saída alvo.
+  - **Acerto:** +1 camada de Firewall.
+  - **Erro:** Punição (perde energia / avança Quadrado e Triângulo uma casa).
 
 ---
 

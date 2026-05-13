@@ -74,5 +74,3 @@ btnOpenTerminal.addEventListener('click', () => {
     // Dispara a função que criamos para abrir a tela preta e gerar as palavras
     startTerminalMinigame();
 });
-
-document.getElementById('virus-alert').classList.remove('hidden');

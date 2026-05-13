@@ -57,6 +57,8 @@ function startNoite() {
     // LIGA AS IAs
     squareInterval = setInterval(updateSquareAI, 4000);
     triangleInterval = setInterval(updateTriangleAI, 7000);
+    circleInterval = setInterval(updateCircleAI, 10000);
+    
     startHexagonAI();
 
     // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
@@ -113,4 +115,18 @@ function runOutPower() {
     clearInterval(powerInterval);
     console.log("Energia acabou...");
     // Futuramente: Apagar as luzes, tocar música assustadora e dar jumpscare
+}
+
+// ==========================================
+// EVENTOS DE DERROTA
+// ==========================================
+
+// Função Global de Jumpscare
+function triggerJumpscare(monstro) {
+    console.error("JUMPSCARE: O " + monstro + " TE PEGOU!");
+    alert("JUMPSCARE! O " + monstro + " entrou no escritório!");
+    
+    // Para o tempo e o gasto de bateria
+    clearInterval(clockInterval);
+    clearInterval(powerInterval);
 }

@@ -211,3 +211,309 @@
 
 .office-btn:hover { background-color: #333; }
 .office-btn.active { background-color: #fff; color: #000; }
+
+/* Disabled state for jammed/broken systems */
+.office-btn:disabled,
+.camera-toggle:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+/* --- DESK ITEMS (Notebook + Terminal access) --- */
+.desk-placeholder {
+    position: relative;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.desk-item {
+    pointer-events: auto;
+    background-color: #1a1a1a;
+    color: #ffcc66;
+    border: 2px solid #ffcc66;
+    padding: 6px 12px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.desk-item:hover {
+    background-color: #ffcc66;
+    color: #000;
+}
+
+.terminal-btn {
+    color: #00ff88;
+    border-color: #00ff88;
+}
+.terminal-btn:hover {
+    background-color: #00ff88;
+    color: #000;
+}
+
+/* --- FIREWALL HUD --- */
+.firewall-ui {
+    position: absolute;
+    bottom: 70px;
+    left: 40px;
+    font-size: 1.3rem;
+    color: #00ccff;
+    letter-spacing: 2px;
+}
+
+#firewall-layers.warning { color: #ffaa00; }
+#firewall-layers.critical { color: #ff3333; animation: flicker 1s infinite alternate; }
+
+/* --- BROKEN SYSTEMS ALERT --- */
+.broken-systems-ui {
+    position: absolute;
+    top: 100px;
+    right: 40px;
+    text-align: right;
+    color: #ff5555;
+    font-size: 1rem;
+    max-width: 300px;
+}
+.broken-systems-ui .broken-line {
+    background: rgba(80, 0, 0, 0.6);
+    border-left: 3px solid #ff3333;
+    padding: 4px 8px;
+    margin-bottom: 4px;
+    animation: flicker 2s infinite alternate;
+}
+
+/* --- OVERLAYS (shared) --- */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay-close {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: inherit;
+}
+.overlay-close:hover { background: #fff; color: #000; }
+
+/* --- NOTEBOOK --- */
+.notebook {
+    width: 600px;
+    max-width: 90vw;
+    height: 70vh;
+    background: #f3e6c4;
+    color: #2a1d0a;
+    border: 6px solid #6b4a1a;
+    border-radius: 4px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(120, 80, 30, 0.3);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Courier New', monospace;
+}
+
+.notebook-header {
+    background: #6b4a1a;
+    color: #f3e6c4;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    letter-spacing: 1px;
+}
+.notebook-title { font-weight: bold; }
+
+.notebook-page {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    background:
+        repeating-linear-gradient(transparent 0, transparent 27px, rgba(120, 80, 30, 0.2) 28px);
+    line-height: 28px;
+}
+.notebook-page h2 {
+    border-bottom: 1px solid #6b4a1a;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+.notebook-page .entry {
+    margin-bottom: 18px;
+}
+.notebook-page .entry-sys {
+    font-weight: bold;
+    color: #8a3a0a;
+}
+.notebook-page .entry-cmd {
+    background: #2a1d0a;
+    color: #f3e6c4;
+    padding: 2px 6px;
+    margin-left: 6px;
+    font-family: monospace;
+}
+
+.notebook-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background: #6b4a1a;
+    color: #f3e6c4;
+}
+.notebook-nav button {
+    background: transparent;
+    color: #f3e6c4;
+    border: 1px solid #f3e6c4;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-family: inherit;
+}
+.notebook-nav button:hover { background: #f3e6c4; color: #6b4a1a; }
+.notebook-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* --- TERMINAL --- */
+.terminal {
+    width: 780px;
+    max-width: 95vw;
+    height: 70vh;
+    background: #050505;
+    color: #00ff88;
+    border: 2px solid #00ff88;
+    box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Courier New', monospace;
+}
+
+.terminal-header {
+    padding: 8px 14px;
+    background: #00ff88;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+.terminal-header .overlay-close {
+    color: #000;
+    border-color: #000;
+}
+.terminal-header .overlay-close:hover { background: #000; color: #00ff88; }
+
+.terminal-output {
+    flex: 1;
+    padding: 14px;
+    overflow-y: auto;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+.terminal-output .line-ok { color: #00ff88; }
+.terminal-output .line-err { color: #ff5555; }
+.terminal-output .line-info { color: #ffcc66; }
+.terminal-output .line-echo { color: #888; }
+
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    padding: 8px 14px;
+    border-top: 1px solid #00ff88;
+}
+.terminal-prompt {
+    color: #00ff88;
+    margin-right: 8px;
+}
+#terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #00ff88;
+    font-family: inherit;
+    font-size: 0.95rem;
+    caret-color: #00ff88;
+}
+
+/* --- PUZZLE (CIRCUIT) --- */
+.puzzle {
+    width: 700px;
+    max-width: 95vw;
+    background: #0a0a14;
+    color: #00ccff;
+    border: 2px solid #00ccff;
+    box-shadow: 0 0 40px rgba(0, 204, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Courier New', monospace;
+}
+.puzzle-header {
+    padding: 10px 14px;
+    background: #00ccff;
+    color: #000;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.puzzle-header .overlay-close {
+    color: #000;
+    border-color: #000;
+}
+.puzzle-header .overlay-close:hover { background: #000; color: #00ccff; }
+
+.puzzle-body {
+    display: flex;
+    gap: 30px;
+    padding: 24px;
+}
+.puzzle-body h3 {
+    margin-bottom: 12px;
+    color: #00ccff;
+    letter-spacing: 2px;
+    font-size: 1rem;
+}
+
+.truth-table table {
+    border-collapse: collapse;
+}
+.truth-table th, .truth-table td {
+    border: 1px solid #00ccff;
+    padding: 6px 14px;
+    text-align: center;
+}
+.truth-table th { background: rgba(0, 204, 255, 0.15); }
+
+.gate-options { flex: 1; }
+#puzzle-gates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.gate-btn {
+    background: #0a0a14;
+    color: #00ccff;
+    border: 2px solid #00ccff;
+    padding: 14px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.gate-btn:hover { background: #00ccff; color: #000; }
+
+.puzzle-footer {
+    padding: 12px 24px;
+    border-top: 1px solid #00ccff;
+    min-height: 40px;
+    font-size: 0.95rem;
+}
+.puzzle-footer.ok { color: #00ff88; }
+.puzzle-footer.err { color: #ff5555; }

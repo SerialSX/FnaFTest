@@ -56,6 +56,7 @@ function startNoite() {
 
     squareInterval = setInterval(updateSquareAI, 4000);
     triangleInterval = setInterval(updateTriangleAI, 7000);
+    startHexagonAI();
 
     // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
     clockInterval = setInterval(() => {
@@ -74,7 +75,9 @@ function startNoite() {
             // Cada porta fechada gasta +1
             if (isLeftDoorClosed) drainAmount += 1;
             if (isRightDoorClosed) drainAmount += 1;
-            
+            // Vazamento no gerador (Hexágono): +1 drain
+            if (window.isPowerLeaking) drainAmount += 1;
+
             // Se o tablet das câmeras estiver aberto, gasta +1 (se já tiver implementado)
             // if (isCameraOpen) drainAmount += 1;
 

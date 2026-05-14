@@ -76,6 +76,7 @@
     cursor: pointer;
     pointer-events: auto; /* Reativa o clique só para o botão */
     transition: all 0.2s ease;
+    z-index: 80;
 }
 
 .camera-toggle:hover {
@@ -91,7 +92,7 @@
     width: 100vw;
     height: 100vh;
     background-color: #111;
-    z-index: 10; /* Fica por cima do escritório */
+    z-index: 70;
     display: flex;
 }
 

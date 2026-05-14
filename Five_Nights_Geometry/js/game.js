@@ -21,7 +21,7 @@ let isRightDoorClosed = false;
 // Botão da Porta Esquerda
 btnDoorLeft.addEventListener('click', () => {
     isLeftDoorClosed = !isLeftDoorClosed; // Inverte o estado
-    
+
     if (isLeftDoorClosed) {
         doorLeft.classList.add('closed');
         doorLeft.innerText = "FECHADA";
@@ -36,7 +36,7 @@ btnDoorLeft.addEventListener('click', () => {
 // Botão da Porta Direita
 btnDoorRight.addEventListener('click', () => {
     isRightDoorClosed = !isRightDoorClosed;
-    
+
     if (isRightDoorClosed) {
         doorRight.classList.add('closed');
         doorRight.innerText = "FECHADA";
@@ -58,23 +58,23 @@ function startNoite() {
     squareInterval = setInterval(updateSquareAI, 4000);
     triangleInterval = setInterval(updateTriangleAI, 7000);
     circleInterval = setInterval(updateCircleAI, 10000);
-    
+
     startHexagonAI();
 
     // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
     clockInterval = setInterval(() => {
         hour++;
         updateDisplays();
-        
+
         if (hour === 6) {
             winGame();
         }
-    }, 5000); 
+    }, 5000);
 
     powerInterval = setInterval(() => {
         if (power > 0) {
-            let drainAmount = 1; 
-            
+            let drainAmount = 1;
+
             // Cada porta fechada gasta +1
             if (isLeftDoorClosed) drainAmount += 1;
             if (isRightDoorClosed) drainAmount += 1;
@@ -85,8 +85,8 @@ function startNoite() {
             // if (isCameraOpen) drainAmount += 1;
 
             power -= drainAmount;
-            
-            if(power < 0) power = 0; 
+
+            if (power < 0) power = 0;
             updateDisplays();
         } else {
             runOutPower(); // Acabou a energia!
@@ -125,7 +125,7 @@ function runOutPower() {
 function triggerJumpscare(monstro) {
     console.error("JUMPSCARE: O " + monstro + " TE PEGOU!");
     alert("JUMPSCARE! O " + monstro + " entrou no escritório!");
-    
+
     // Para o tempo e o gasto de bateria
     clearInterval(clockInterval);
     clearInterval(powerInterval);

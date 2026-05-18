@@ -1,21 +1,20 @@
 // ==========================================
-// SISTEMA DE CÂMERAS E RADAR
+// SISTEMA DE RADAR GLOBAL E CÂMERAS
 // ==========================================
 
 const btnCameras = document.getElementById('btn-cameras');
 const cameraSystem = document.getElementById('camera-system');
 let isCameraOpen = false;
 
-// Fila de destruição do Círculo Amarelo (Da mais inútil para a mais vital)
+// Fila de destruição do Círculo Amarelo (Palco, Fundos, Corredor Esq, Corredor Dir)
 let cameraBreakOrder = [1, 4, 2, 3]; 
 let brokenCameras = [];
 
-// Função para abrir/fechar o tablet
+// --- 1. LÓGICA DE ABRIR/FECHAR O TABLET ---
 btnCameras.addEventListener('click', () => {
-    // Se o sistema de câmeras estiver quebrado pelo Hexágono, ele nem tenta abrir
     if (btnCameras.disabled) return; 
 
-    isCameraOpen = !isCameraOpen; // Inverte o estado (Aberto/Fechado)
+    isCameraOpen = !isCameraOpen; 
     
     if (isCameraOpen) {
         cameraSystem.classList.remove('hidden');
@@ -26,60 +25,73 @@ btnCameras.addEventListener('click', () => {
     }
 });
 
-// Função que o Círculo Amarelo chama quando o jogador erra a palavra
+// --- 2. LÓGICA DE DESTRUIÇÃO (VÍRUS DO CÍRCULO) ---
 function breakNextCamera() {
     if (cameraBreakOrder.length > 0) {
         let camId = cameraBreakOrder.shift(); 
         brokenCameras.push(camId);
         
-        console.warn(`[VÍRUS] CRÍTICO: Câmera ${camId} destruída permanentemente!`);
+        console.warn(`[VÍRUS] CRÍTICO: Câmera ${camId} destruída!`);
 
-        // Quebra visualmente o botão no mapa
-        let camBtn = document.querySelector(`.cam-btn[data-cam="${camId}"]`);
+        // Acha o node no mapa e aplica a classe 'dead'
+        let camBtn = document.getElementById(`cam${camId}`);
         if (camBtn) {
-            camBtn.disabled = true;
-            camBtn.style.backgroundColor = "#330000"; // Vermelho escuro
-            camBtn.style.color = "#ff0000";
-            camBtn.style.borderColor = "#ff0000";
+            camBtn.classList.add('dead');
             camBtn.innerText = "DEAD";
-            camBtn.style.textDecoration = "line-through";
         }
     } else {
         console.error("Todas as câmeras foram destruídas! Cegueira total.");
     }
 }
 
-// ==========================================
-// LÓGICA DE TROCA DE CÂMERAS
-// ==========================================
+// --- 3. LÓGICA DO PING GLOBAL ---
+const btnPing = document.getElementById('btn-ping-global');
+const statusDisplay = document.getElementById('status-display');
 
-const camButtons = document.querySelectorAll('.cam-btn');
-const cameraNameDisplay = document.getElementById('camera-name');
+btnPing.addEventListener('click', () => {
+    btnPing.disabled = true;
+    
+    // Limpa alertas antigos
+    document.querySelectorAll('.node-btn').forEach(btn => btn.classList.remove('ping-active'));
+    
+    statusDisplay.innerText = "ENVIANDO PING RADAR PARA TODOS OS NODES...";
 
-// Dicionário com os nomes de cada câmera
-const cameraNames = {
-    "1": "CAM 01 - PALCO PRINCIPAL",
-    "2": "CAM 02 - CORREDOR ESQUERDO",
-    "3": "CAM 03 - CORREDOR DIREITO",
-    "4": "CAM 04 - FUNDOS / GERADOR"
-};
+    setTimeout(() => {
+        statusDisplay.innerText = "SINAL RECEBIDO. ANALISANDO INTERFERÊNCIAS...";
 
-camButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Se a câmera estiver morta (destruída pelo Círculo), o clique não faz nada
-        if (btn.disabled) return;
+        setTimeout(() => {
+            let anomalies = 0;
 
-        // 1. Remove a classe 'active-cam' (verde) de TODOS os botões
-        camButtons.forEach(b => b.classList.remove('active-cam'));
+            // Verifica o Quadrado Azul (Se não estiver no escritório(4) e a câmera não estiver quebrada)
+            if (typeof squarePosition !== 'undefined' && squarePosition >= 1 && squarePosition <= 3) {
+                if (!brokenCameras.includes(squarePosition)) {
+                    document.getElementById(`cam${squarePosition}`).classList.add('ping-active');
+                    anomalies++;
+                }
+            }
 
-        // 2. Coloca a classe 'active-cam' (verde) SÓ no botão que você clicou
-        btn.classList.add('active-cam');
+            // Verifica o Triângulo Vermelho
+            if (typeof trianglePosition !== 'undefined' && trianglePosition >= 1 && trianglePosition <= 3) {
+                if (!brokenCameras.includes(trianglePosition)) {
+                    document.getElementById(`cam${trianglePosition}`).classList.add('ping-active');
+                    anomalies++;
+                }
+            }
 
-        // 3. Muda o texto no topo da tela para o nome correto da câmera
-        let camId = btn.getAttribute('data-cam');
-        cameraNameDisplay.innerText = cameraNames[camId];
+            // Atualiza o painel de status
+            if (anomalies > 0) {
+                statusDisplay.innerText = `SCAN COMPLETO. ${anomalies} ANOMALIA(S) DETECTADA(S).`;
+            } else {
+                statusDisplay.innerText = "SCAN COMPLETO. NENHUMA ANOMALIA VISÍVEL.";
+            }
 
-        // Futuramente: AQUI VAMOS TROCAR A IMAGEM DE FUNDO DA CÂMERA!
-        console.log(`Visão alterada para: ${cameraNames[camId]}`);
-    });
+            // O alerta fica piscando vermelho por 5 segundos e depois some, liberando novo ping
+            setTimeout(() => {
+                document.querySelectorAll('.node-btn').forEach(btn => btn.classList.remove('ping-active'));
+                statusDisplay.innerText = "SINAL PERDIDO. RECOMENDA-SE NOVO PING.";
+                btnPing.disabled = false;
+            }, 5000);
+            
+        }, 1500);
+    }, 1500);
 });

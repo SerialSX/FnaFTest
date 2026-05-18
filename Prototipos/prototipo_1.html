@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Protótipo 1: Overpass Security - Geometry OS</title>
+    <style>
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
+        #camera-screen {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background-color: #050505;
+        }
+
+        /* Estática quase invisível */
+        #static-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://media1.tenor.com/m/T9lxlTwR_JIAAAAC/tv-static.gif');
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        #camera-name {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            z-index: 5;
+            transition: opacity 0.5s;
+        }
+
+        .offline-tag {
+            font-size: 0.8rem;
+            color: #555;
+            border: 1px solid #333;
+            padding: 2px 6px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Botão Overpass no canto */
+        #btn-overpass {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            background: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: inherit;
+            z-index: 100;
+        }
+
+        #btn-overpass:hover { background: #fff; color: #000; }
+
+        /* Caixa Central do Radar */
+        #radar-central-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            border: 2px solid #fff;
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            display: none; /* Escondido por padrão */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .radar-scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px #fff;
+            top: 0;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        #radar-status {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-align: center;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 10px;
+            width: 80%;
+        }
+
+        #btn-ping {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        #btn-ping:disabled { background: #555; cursor: not-allowed; }
+
+        .ghost-ping {
+            position: absolute;
+            color: #ff0000;
+            border: 1px solid #ff0000;
+            padding: 4px;
+            font-weight: bold;
+            animation: pulse 1s infinite alternate, fadeOut 6s forwards;
+        }
+
+        @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
+        @keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+        /* Animação de Flash */
+        .flash {
+            animation: flashAnim 0.3s forwards;
+        }
+        @keyframes flashAnim {
+            0% { opacity: 0.02; }
+            50% { opacity: 0.8; background-color: #fff; }
+            100% { opacity: 0.02; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="camera-screen">
+    <div id="static-overlay"></div>
+    
+    <div id="camera-name">
+        CAM 01 - PALCO PRINCIPAL <span class="offline-tag">OffLine</span>
+    </div>
+
+    <button id="btn-overpass">OVERPASS SECURITY</button>
+
+    <div id="radar-central-box">
+        <div class="radar-scan-line"></div>
+        <div id="radar-status">SYSTEM READY.<br>WAITING FOR PING COMMAND.</div>
+        <div id="radar-markers"></div>
+        <button id="btn-ping">EMITIR PING RADAR</button>
+    </div>
+</div>
+
+<script>
+    const btnOverpass = document.getElementById('btn-overpass');
+    const radarBox = document.getElementById('radar-central-box');
+    const static = document.getElementById('static-overlay');
+    const camName = document.getElementById('camera-name');
+    const btnPing = document.getElementById('btn-ping');
+    const status = document.getElementById('radar-status');
+    const markers = document.getElementById('radar-markers');
+
+    let overpassActive = false;
+
+    btnOverpass.onclick = () => {
+        overpassActive = !overpassActive;
+        
+        // Efeito de Flash
+        static.classList.add('flash');
+        setTimeout(() => static.classList.remove('flash'), 300);
+
+        if (overpassActive) {
+            radarBox.style.display = 'flex';
+            camName.style.opacity = '0';
+            btnOverpass.innerText = 'TERMINAL OVERPASS';
+        } else {
+            radarBox.style.display = 'none';
+            camName.style.opacity = '1';
+            btnOverpass.innerText = 'OVERPASS SECURITY';
+        }
+    };
+
+    btnPing.onclick = () => {
+        btnPing.disabled = true;
+        markers.innerHTML = '';
+        status.innerHTML = "SENDING PING...<br>RECOVERING DIGITAL NODES...";
+
+        setTimeout(() => {
+            status.innerHTML = "SIGNAL RECEIVED.<br>MAPPING ANOMALIES...";
+            
+            setTimeout(() => {
+                status.innerHTML = "SCAN COMPLETE.<br>ANOMALY DETECTED IN SECTOR 2.";
+                
+                const ping = document.createElement('div');
+                ping.className = 'ghost-ping';
+                ping.style.top = '40%';
+                ping.style.left = '20%';
+                ping.innerText = '▲ TRIANGLE';
+                markers.appendChild(ping);
+                
+                btnPing.disabled = false;
+            }, 1500);
+        }, 1500);
+    };
+</script>
+
+</body>
+</html>

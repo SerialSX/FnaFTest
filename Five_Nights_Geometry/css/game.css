@@ -96,79 +96,104 @@
     display: flex;
 }
 
-/* Onde a imagem da câmera aparece */
-#camera-view {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    
-    /* AQUI VOCÊ VAI COLOCAR A IMAGEM DA CÂMERA 1 COMO PADRÃO 
-       Exemplo: background-image: url('../assets/images/cam1_normal.png');
-    */
-    background-color: #222; /* Cor provisória enquanto não tem imagem */
-}
-
-/* Efeito de TV Antiga / Chiado */
-.static-overlay {
+/* --- SISTEMA DE CÂMERAS (TABLET GLOBAL NODE) --- */
+#camera-system {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.1; /* Bem fraquinho para não cegar o jogador */
-    pointer-events: none;
-    /* AQUI VOCÊ PODE COLOCAR UM GIF DE ESTÁTICA COM FUNDO TRANSPARENTE
-       Exemplo: background-image: url('../assets/images/chiado.gif');
-    */
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85); /* Escurece o escritório, mas deixa ele visível no fundo! */
+    z-index: 70;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centraliza o mapa e o botão na tela */
 }
 
-#camera-name {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    color: #fff;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    text-shadow: 2px 2px 0 #000;
+/* O Mapa Quadrado Central */
+#map-container {
+    width: 600px;
+    height: 600px;
+    border: 2px solid #333;
+    background: rgba(10, 10, 10, 0.95);
+    position: relative;
+    margin-bottom: 30px;
+    box-shadow: 0 0 50px rgba(0, 255, 136, 0.1);
 }
 
-/* --- MAPA E BOTÕES --- */
-#camera-map {
+.map-label {
     position: absolute;
-    bottom: 50px;
-    right: 50px;
-    width: 300px;
-    height: 300px;
-    border: 2px solid #555;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* SE QUISER UM DESENHO DE PLANTA BAIXA NO FUNDO DO MAPA:
-       background-image: url('../assets/images/mapa_layout.png');
-    */
+    top: 20px;
+    left: 20px;
+    font-size: 1.2rem;
+    color: #00ff88;
 }
 
-.cam-btn {
+/* Botões (Nodes) das Câmeras */
+.node-btn {
     position: absolute;
-    background-color: #333;
-    color: #fff;
+    width: 80px;
+    height: 50px;
+    background: #222;
     border: 1px solid #fff;
-    padding: 5px 10px;
-    cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
     font-family: inherit;
+    transition: all 0.3s;
 }
 
-/* Estilo para quando a câmera estiver selecionada */
-.cam-btn.active-cam {
-    background-color: #00ff00; /* Verde clássico de monitor */
+/* Animação de quando o Radar acha um bicho na câmera */
+.node-btn.ping-active {
+    animation: alertFlash 0.5s infinite alternate;
+}
+
+@keyframes alertFlash {
+    from { background: #222; color: #fff; box-shadow: none; }
+    to { background: #ff0000; color: #000; border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+}
+
+/* Quando o Círculo Amarelo destrói a câmera */
+.node-btn.dead {
+    background: #330000 !important;
+    color: #ff0000 !important;
+    border-color: #ff0000 !important;
+    text-decoration: line-through;
+}
+
+/* Posições das Câmeras no Mapa */
+#cam1 { top: 50px; left: 260px; }
+#cam2 { top: 275px; left: 50px; }
+#cam3 { top: 275px; right: 50px; }
+#cam4 { bottom: 50px; left: 260px; }
+
+/* O Botão de Ping Gigante */
+#btn-ping-global {
+    width: 400px;
+    padding: 20px;
+    background: #fff;
     color: #000;
+    border: none;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transition: 0.2s;
 }
 
-/* Posicionamento manual dos botões no mapa (Ajuste conforme o seu desenho) */
-.cam-btn[data-cam="1"] { top: 20px; left: 120px; }
-.cam-btn[data-cam="2"] { top: 100px; left: 50px; }
-.cam-btn[data-cam="3"] { top: 100px; right: 50px; }
-.cam-btn[data-cam="4"] { bottom: 40px; left: 120px; }
+#btn-ping-global:hover { box-shadow: 0 0 35px rgba(255, 255, 255, 0.6); transform: scale(1.05); }
+#btn-ping-global:disabled { background: #444; color: #777; cursor: not-allowed; box-shadow: none; }
+
+#status-display {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #00ff88;
+    text-align: center;
+}
 
 /* Estação da Porta (Agrupa a porta e os botões) */
 .door-station {

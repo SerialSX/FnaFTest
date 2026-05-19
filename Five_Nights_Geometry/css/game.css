@@ -375,6 +375,8 @@
     font-size: 1.3rem;
     color: #00ccff;
     letter-spacing: 2px;
+    display: none; /* <--- ADICIONE ISSO: Ele começa invisível no escritório */
+    z-index: 80;
 }
 
 #firewall-layers.warning { color: #ffaa00; }
@@ -630,3 +632,26 @@
 }
 .puzzle-footer.ok { color: #00ff88; }
 .puzzle-footer.err { color: #ff5555; }
+
+/* ========================================== */
+/* MODO BLACKOUT (FIM DA ENERGIA PRINCIPAL)   */
+/* ========================================== */
+body.blackout-mode {
+    background-color: #000;
+}
+
+/* Apaga as luzes da sala */
+body.blackout-mode #office-layout {
+    opacity: 0.05; 
+    transition: opacity 2s ease; 
+}
+
+/* Esconde portas, terminal da mesa e relógio. O botão da câmera SOBREVIVE. */
+body.blackout-mode .door-placeholder,
+body.blackout-mode #terminal-overlay,
+body.blackout-mode #notebook-overlay,
+body.blackout-mode #puzzle-overlay,
+body.blackout-mode .time-ui,
+body.blackout-mode .battery-ui {
+    display: none !important;
+}

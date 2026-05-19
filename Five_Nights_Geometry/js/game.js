@@ -48,6 +48,49 @@ btnDoorRight.addEventListener('click', () => {
     }
 });
 
+let internalBatteryTimer; // Timer para a bateria de emergência do Tablet
+
+// Função de Fim de Energia (O Apagão Principal)
+function runOutPower() {
+    clearInterval(powerInterval); // Para APENAS o dreno de energia. 
+    // O clockInterval CONTINUA RODANDO no escuro para o cara ter a chance de ganhar!
+
+    console.log("Energia principal esgotada... PROTOCOLO DE BLACKOUT INICIADO.");
+
+    // 1. As portas perdem a força magnética e abrem sozinhas (Vulnerabilidade total)
+    isLeftDoorClosed = false;
+    isRightDoorClosed = false;
+    doorLeft.classList.remove('closed');
+    doorRight.classList.remove('closed');
+    doorLeft.innerText = "PORTA ABERTA";
+    doorRight.innerText = "PORTA ABERTA";
+    btnDoorLeft.classList.remove('active');
+    btnDoorRight.classList.remove('active');
+
+    // 2. Trava os botões físicos da mesa
+    btnDoorLeft.disabled = true;
+    btnDoorRight.disabled = true;
+    let btnTerminal = document.getElementById('btn-open-terminal');
+    if (btnTerminal) btnTerminal.disabled = true;
+
+    // 3. Apaga as luzes da sala (com aquele fadezinho foda)
+    document.body.classList.add('blackout-mode');
+
+    // 4. Inicia a bateria interna do tablet (15 segundos de sobrevida)
+    let tempoTablet = 15000; 
+    console.log(`Bateria de emergência do tablet ativada. Restam ${tempoTablet / 1000} segundos!`);
+
+    internalBatteryTimer = setTimeout(() => {
+        // A bateria do tablet morre. O radar desliga.
+        console.log("Bateria do tablet morreu. Escuridão total. Agora é rezar para dar 6 AM.");
+        
+        document.getElementById('btn-cameras').disabled = true;
+        const cameraSystem = document.getElementById('camera-system');
+        if (cameraSystem) cameraSystem.classList.add('hidden');
+
+    }, tempoTablet);
+}
+
 // Função que inicia a noite
 function startNoite() {
     hour = 0;
@@ -68,7 +111,7 @@ function startNoite() {
         if (hour === 6) {
             winGame();
         }
-    }, 5000);
+    }, 30000);
 
     powerInterval = setInterval(() => {
         if (power > 0) {
@@ -107,13 +150,6 @@ function winGame() {
     console.log("6 AM alcançado!");
     alert("6:00 AM! Você sobreviveu à primeira noite!");
     // Futuramente, voltamos para o menu aqui
-}
-
-// Função de Fim de Energia
-function runOutPower() {
-    clearInterval(powerInterval);
-    console.log("Energia acabou...");
-    // Futuramente: Apagar as luzes, tocar música assustadora e dar jumpscare
 }
 
 // ==========================================

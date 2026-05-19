@@ -10,18 +10,27 @@ let isCameraOpen = false;
 let cameraBreakOrder = [1, 4, 2, 3]; 
 let brokenCameras = [];
 
-// --- 1. LÓGICA DE ABRIR/FECHAR O TABLET ---
+// --- 1. LÓGICA DE ABRIR/FECHAR O TABLET E O FIREWALL ---
 btnCameras.addEventListener('click', () => {
     if (btnCameras.disabled) return; 
 
     isCameraOpen = !isCameraOpen; 
     
+    // Procura o Firewall na tela
+    const firewallHUD = document.querySelector('.firewall-ui');
+    
     if (isCameraOpen) {
         cameraSystem.classList.remove('hidden');
         btnCameras.innerText = "FECHAR CÂMERAS";
+        
+        // Mostra o Firewall quando o tablet abre
+        if (firewallHUD) firewallHUD.style.display = 'block'; 
     } else {
         cameraSystem.classList.add('hidden');
         btnCameras.innerText = "ABRIR CÂMERAS";
+        
+        // Esconde o Firewall quando o tablet fecha
+        if (firewallHUD) firewallHUD.style.display = 'none'; 
     }
 });
 

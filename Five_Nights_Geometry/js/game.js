@@ -55,11 +55,10 @@ function startNoite() {
     updateDisplays();
 
     // LIGA AS IAs
-    squareInterval = setInterval(updateSquareAI, 4000);
-    triangleInterval = setInterval(updateTriangleAI, 7000);
-    circleInterval = setInterval(updateCircleAI, 10000);
-
-    startHexagonAI();
+    // squareInterval = setInterval(updateSquareAI, 4000);
+    // triangleInterval = setInterval(updateTriangleAI, 7000);
+    // circleInterval = setInterval(updateCircleAI, 10000);
+    // startHexagonAI();
 
     // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
     clockInterval = setInterval(() => {

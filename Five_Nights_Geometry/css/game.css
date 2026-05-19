@@ -96,29 +96,85 @@
     display: flex;
 }
 
-/* --- SISTEMA DE CÂMERAS (TABLET GLOBAL NODE) --- */
+/* --- SISTEMA DE CÂMERAS (TABLET TELA CHEIA) --- */
 #camera-system {
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85); /* Escurece o escritório, mas deixa ele visível no fundo! */
+    background-color: #070707; /* Fundo sólido e escuro. Esconde o escritório 100% */
     z-index: 70;
+    display: flex;
+    flex-direction: row; /* Organiza em linha (Esq - Centro - Dir) */
+    align-items: center;
+    justify-content: space-between; 
+    padding: 40px; 
+    padding-bottom: 100px; /* Espaço vital para não cobrir o botão FECHAR CÂMERAS */
+}
+
+/* Colunas laterais (Placeholders Verdes) */
+.tablet-sidebar {
+    flex: 1; 
+    max-width: 350px; /* <--- NOVA LINHA: Impede que as laterais fiquem gigantes */
+    height: 100%;
+    border: 1px dashed #00ff88;
+    background: rgba(0, 255, 136, 0.03);
+    color: #00ff88;
+    padding: 20px;
+    opacity: 0.5; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.tablet-sidebar h4 {
+    border-bottom: 1px solid #00ff88;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+#tablet-center {
+    flex: none; /* <--- NOVA LINHA: Tira a flexibilidade para ele não encolher */
+    width: 600px; /* <--- NOVA LINHA: Trava a largura exata para os botões não vazarem */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centraliza o mapa e o botão na tela */
+    margin: 0 40px; 
+    position: relative;
+    z-index: 1;
 }
 
-/* O Mapa Quadrado Central */
-#map-container {
-    width: 600px;
-    height: 600px;
-    border: 2px solid #333;
-    background: rgba(10, 10, 10, 0.95);
+/* --- O EFEITO DE NEVASCA / CHIADO NO FUNDO --- */
+.tablet-static {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://media1.tenor.com/m/T9lxlTwR_JIAAAAC/tv-static.gif');
+    opacity: 0.05; /* Valor bem baixo para ser um detalhe, não cegar o jogador */
+    pointer-events: none; /* Impede que a estática bloqueie os cliques do mouse */
+    z-index: 0;
+}
+
+/* Garante que os painéis fiquem acima da estática */
+.tablet-sidebar, #tablet-center {
     position: relative;
-    margin-bottom: 30px;
+    z-index: 1;
+}
+
+/* O Mapa Quadrado Central (Alterado) */
+#map-container {
+    width: 100%;
+    height: 450px;
+    border: 2px solid #333;
+    /* MUDANÇA: Fundo sólido (#0a0a0a) em vez de rgba, para BLOQUEAR a estática de passar por ele! */
+    background: #0a0a0a; 
+    position: relative;
+    margin-bottom: 20px;
     box-shadow: 0 0 50px rgba(0, 255, 136, 0.1);
 }
 
@@ -146,7 +202,6 @@
     transition: all 0.3s;
 }
 
-/* Animação de quando o Radar acha um bicho na câmera */
 .node-btn.ping-active {
     animation: alertFlash 0.5s infinite alternate;
 }
@@ -156,7 +211,6 @@
     to { background: #ff0000; color: #000; border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
 }
 
-/* Quando o Círculo Amarelo destrói a câmera */
 .node-btn.dead {
     background: #330000 !important;
     color: #ff0000 !important;
@@ -164,15 +218,15 @@
     text-decoration: line-through;
 }
 
-/* Posições das Câmeras no Mapa */
+/* Posições ajustadas para a nova altura de 450px */
 #cam1 { top: 50px; left: 260px; }
-#cam2 { top: 275px; left: 50px; }
-#cam3 { top: 275px; right: 50px; }
+#cam2 { top: 200px; left: 50px; }
+#cam3 { top: 200px; right: 50px; }
 #cam4 { bottom: 50px; left: 260px; }
 
 /* O Botão de Ping Gigante */
 #btn-ping-global {
-    width: 400px;
+    width: 100%; /* Agora ele ocupa a largura inteira do tablet center */
     padding: 20px;
     background: #fff;
     color: #000;
@@ -185,14 +239,15 @@
     transition: 0.2s;
 }
 
-#btn-ping-global:hover { box-shadow: 0 0 35px rgba(255, 255, 255, 0.6); transform: scale(1.05); }
-#btn-ping-global:disabled { background: #444; color: #777; cursor: not-allowed; box-shadow: none; }
+#btn-ping-global:hover { box-shadow: 0 0 35px rgba(255, 255, 255, 0.6); transform: scale(1.02); }
+#btn-ping-global:disabled { background: #444; color: #777; cursor: not-allowed; box-shadow: none; transform: scale(1); }
 
 #status-display {
     margin-top: 15px;
     font-size: 1rem;
     color: #00ff88;
     text-align: center;
+    min-height: 30px;
 }
 
 /* Estação da Porta (Agrupa a porta e os botões) */

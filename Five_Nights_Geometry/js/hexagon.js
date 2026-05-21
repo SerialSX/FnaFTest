@@ -4,8 +4,8 @@
 
 const HEXAGON_CONFIG = {
     maxLayers: 5,
-    tickMs: 20000,
-    attackThreshold: 70,
+    tickMs: 30000,
+    attackThreshold: 80,
 };
 
 const BROKEN_SYSTEMS = [
@@ -13,11 +13,11 @@ const BROKEN_SYSTEMS = [
 ];
 
 const REPAIR_CODES = [
-    { system: 'camera_offline',    command: 'fix camera',      desc: 'Recompila o feed da câmera principal.' },
-    { system: 'door_left_jammed',  command: 'unjam door_left', desc: 'Libera o motor travado da porta esquerda.' },
-    { system: 'door_right_jammed', command: 'unjam door_right',desc: 'Libera o motor travado da porta direita.' },
-    { system: 'clock_glitch',      command: 'sync clock',      desc: 'Ressincroniza o cronômetro do sistema.' },
-    { system: 'power_leak',        command: 'seal power_leak', desc: 'Fecha o vazamento no gerador.' },
+    { system: 'camera_offline', command: 'fix camera', desc: 'Recompila o feed da câmera principal.' },
+    { system: 'door_left_jammed', command: 'unjam door_left', desc: 'Libera o motor travado da porta esquerda.' },
+    { system: 'door_right_jammed', command: 'unjam door_right', desc: 'Libera o motor travado da porta direita.' },
+    { system: 'clock_glitch', command: 'sync clock', desc: 'Ressincroniza o cronômetro do sistema.' },
+    { system: 'power_leak', command: 'seal power_leak', desc: 'Fecha o vazamento no gerador.' },
 ];
 
 let firewallLayers = HEXAGON_CONFIG.maxLayers;

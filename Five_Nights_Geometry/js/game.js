@@ -97,13 +97,13 @@ function startNoite() {
     power = 100;
     updateDisplays();
 
-    // LIGA AS IAs
-    // squareInterval = setInterval(updateSquareAI, 4000);
-    // triangleInterval = setInterval(updateTriangleAI, 7000);
-    // circleInterval = setInterval(updateCircleAI, 10000);
-    // startHexagonAI();
+    // LIGA AS IAs (A caçada começou!)
+    squareInterval = setInterval(updateSquareAI, 9000);
+    triangleInterval = setInterval(updateTriangleAI, 16000);
+    circleInterval = setInterval(updateCircleAI, 20000);
+    startHexagonAI();
 
-    // Loop do Relógio: Passa 1 hora a cada 5 segundos (para teste)
+    // Loop do Relógio: Passa 1 hora a cada 30 segundos
     clockInterval = setInterval(() => {
         hour++;
         updateDisplays();
@@ -113,6 +113,7 @@ function startNoite() {
         }
     }, 30000);
 
+    // Loop da Energia (Balanceado)
     powerInterval = setInterval(() => {
         if (power > 0) {
             let drainAmount = 1;
@@ -123,9 +124,6 @@ function startNoite() {
             // Vazamento no gerador (Hexágono): +1 drain
             if (window.isPowerLeaking) drainAmount += 1;
 
-            // Se o tablet das câmeras estiver aberto, gasta +1 (se já tiver implementado)
-            // if (isCameraOpen) drainAmount += 1;
-
             power -= drainAmount;
 
             if (power < 0) power = 0;
@@ -133,7 +131,7 @@ function startNoite() {
         } else {
             runOutPower(); // Acabou a energia!
         }
-    }, 1000);
+    }, 4500);
 }
 
 // Atualiza os textos na tela

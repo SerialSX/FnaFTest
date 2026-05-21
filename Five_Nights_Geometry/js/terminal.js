@@ -36,10 +36,12 @@ function terminalSubmit(raw) {
         terminalEcho('Available: help, status, fix camera, unjam door_left, unjam door_right, sync clock, seal power_leak, restore_firewall, clear', 'line-info');
         return;
     }
+
     if (input === 'clear') {
         document.getElementById('terminal-output').innerHTML = '';
         return;
     }
+
     if (input === 'status') {
         terminalEcho(`Firewall: ${firewallLayers}/${HEXAGON_CONFIG.maxLayers}`, 'line-info');
         if (brokenSystems.size === 0) {
@@ -49,6 +51,25 @@ function terminalSubmit(raw) {
         }
         return;
     }
+
+    // NOVA LINHA: O COMANDO DE OVERRIDE
+    if (input === 'reset generator') {
+        terminalEcho('Iniciando protocolo de override do gerador...', 'line-info');
+
+        if (typeof triggerEnergyOverride === 'function') {
+            let wasPunished = triggerEnergyOverride();
+
+            if (wasPunished) {
+                terminalEcho('[AVISO] Sobrecarga detectada! Bateria descarregada para 50%.', 'line-err');
+            } else {
+                terminalEcho('[OK] Gerador forçado. Bateria restaurada para 50%.', 'line-ok');
+            }
+        } else {
+            terminalEcho('[ERRO] Módulo do gerador não encontrado.', 'line-err');
+        }
+        return;
+    }
+
     if (input === 'restore_firewall') {
         if (firewallLayers >= HEXAGON_CONFIG.maxLayers) {
             terminalEcho('Firewall already at maximum.', 'line-info');

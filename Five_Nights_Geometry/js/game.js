@@ -77,13 +77,13 @@ function runOutPower() {
     document.body.classList.add('blackout-mode');
 
     // 4. Inicia a bateria interna do tablet (15 segundos de sobrevida)
-    let tempoTablet = 15000; 
+    let tempoTablet = 15000;
     console.log(`Bateria de emergência do tablet ativada. Restam ${tempoTablet / 1000} segundos!`);
 
     internalBatteryTimer = setTimeout(() => {
         // A bateria do tablet morre. O radar desliga.
         console.log("Bateria do tablet morreu. Escuridão total. Agora é rezar para dar 6 AM.");
-        
+
         document.getElementById('btn-cameras').disabled = true;
         const cameraSystem = document.getElementById('camera-system');
         if (cameraSystem) cameraSystem.classList.add('hidden');
@@ -164,4 +164,51 @@ function triggerJumpscare(monstro) {
     // Para o tempo e o gasto de bateria
     clearInterval(clockInterval);
     clearInterval(powerInterval);
+}
+
+// ==========================================
+// PROTOCOLO DE OVERRIDE DO GERADOR
+// ==========================================
+function triggerEnergyOverride() {
+    // 1. Atualiza a energia para 50% (seja punição ou salvação)
+    let isPunishment = power > 50;
+    power = 50;
+    updateDisplays();
+
+    // 2. Se a sala estiver em blackout, a gente ressuscita tudo
+    if (document.body.classList.contains('blackout-mode')) {
+        console.log("Gerador reiniciado! Luzes voltando...");
+
+        // Cancela o Game Over do tablet
+        if (typeof internalBatteryTimer !== 'undefined') {
+            clearTimeout(internalBatteryTimer);
+        }
+
+        // Remove a escuridão
+        document.body.classList.remove('blackout-mode');
+
+        // Destrava os botões físicos da mesa
+        btnDoorLeft.disabled = false;
+        btnDoorRight.disabled = false;
+        let btnTerminal = document.getElementById('btn-open-terminal');
+        if (btnTerminal) btnTerminal.disabled = false;
+
+        // Religa o dreno de energia normal da sala
+        powerInterval = setInterval(() => {
+            if (power > 0) {
+                let drainAmount = 1;
+                if (isLeftDoorClosed) drainAmount += 1;
+                if (isRightDoorClosed) drainAmount += 1;
+                if (window.isPowerLeaking) drainAmount += 1;
+
+                power -= drainAmount;
+                if (power < 0) power = 0;
+                updateDisplays();
+            } else {
+                runOutPower();
+            }
+        }, 1000);
+    }
+
+    return isPunishment; // Retorna pro Terminal saber o que responder
 }

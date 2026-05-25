@@ -54,6 +54,22 @@
 
         </div>
 
+        <div id="tutorial-overlay" class="hidden">
+            
+            <div id="tutorial-loading">
+                <p>INICIALIZANDO SIMULAÇÃO_</p>
+            </div>
+
+            <div id="tutorial-scene" class="hidden">
+                <div id="tutor-sprite"></div>
+
+                <div id="tutor-dialogue-box">
+                    <p id="tutor-text"></p>
+                    <span id="tutor-next" class="hidden">▼</span> 
+                </div>
+            </div>
+        </div>
+
         <!-- A interface de usuário (UI) que fica por cima de tudo -->
         <div id="ui-layer">
             <div class="time-ui">
@@ -176,6 +192,7 @@
     <script src="js/game.js"></script>
     <script src="js/minigame.js"></script>
     
+    <script src="js/tutorial.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/main.js"></script>
     

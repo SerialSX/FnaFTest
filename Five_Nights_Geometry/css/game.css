@@ -655,3 +655,67 @@ body.blackout-mode .time-ui,
 body.blackout-mode .battery-ui {
     display: none !important;
 }
+
+/* ========================================== */
+/* NOITE 0: ASSISTENTE DE DEBUG (VISUAL NOVEL)*/
+/* ========================================== */
+#tutorial-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #000;
+    z-index: 300; /* Acima de todo o resto do jogo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#tutorial-loading p {
+    color: #888;
+    font-family: monospace;
+    font-size: 1.5rem;
+    animation: blink 1s infinite;
+}
+
+/* Cena principal (onde rola o diálogo) */
+#tutorial-scene {
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Empurra a caixa pra baixo */
+    align-items: center;
+    opacity: 0; /* Começa invisível... */
+    transition: opacity 4s ease; /* ... e sofre um fade-in BEM lento (4s) */
+}
+
+/* Placeholder da Arte Cinza */
+#tutor-sprite {
+    width: 250px;
+    height: 350px;
+    background-color: #333; /* Seu placeholder cinza */
+    margin-bottom: 30px;
+}
+
+/* A Caixa de Diálogo Técnica */
+#tutor-dialogue-box {
+    width: 80%;
+    height: 150px;
+    background-color: #0a0a0a;
+    border: 2px solid #555;
+    color: #ccc;
+    font-family: monospace;
+    font-size: 1.3rem;
+    padding: 20px;
+    margin-bottom: 50px;
+    position: relative;
+    cursor: pointer; /* Indica que dá pra clicar */
+}
+
+#tutor-next {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    color: #fff;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }

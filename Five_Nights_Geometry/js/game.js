@@ -98,10 +98,10 @@ function startNoite() {
     updateDisplays();
 
     // LIGA AS IAs (A caçada começou!)
-    squareInterval = setInterval(updateSquareAI, 9000);
+    /*squareInterval = setInterval(updateSquareAI, 9000);
     triangleInterval = setInterval(updateTriangleAI, 16000);
     circleInterval = setInterval(updateCircleAI, 20000);
-    startHexagonAI();
+    startHexagonAI();*/
 
     // Loop do Relógio: Passa 1 hora a cada 30 segundos
     clockInterval = setInterval(() => {
@@ -145,9 +145,15 @@ function updateDisplays() {
 function winGame() {
     clearInterval(clockInterval);
     clearInterval(powerInterval);
-    console.log("6 AM alcançado!");
-    alert("6:00 AM! Você sobreviveu à primeira noite!");
-    // Futuramente, voltamos para o menu aqui
+    
+    alert(`6:00 AM! Você sobreviveu à Noite ${window.currentNight}!`);
+    
+    // Avança para a próxima noite e salva no Memory Card
+    let nextNight = window.currentNight + 1;
+    localStorage.setItem('geometry_save', nextNight);
+    
+    // Recarrega a página para voltar ao Menu
+    window.location.reload(); 
 }
 
 // ==========================================

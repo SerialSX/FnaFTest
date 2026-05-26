@@ -676,44 +676,57 @@ body.blackout-mode .battery-ui {
     animation: blink 1s infinite;
 }
 
-/* Cena principal (onde rola o diálogo) */
+/* Cena principal: Define o tamanho e a "âncora" para o posicionamento absoluto */
 #tutorial-scene {
-    width: 100%; height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Empurra a caixa pra baixo */
-    align-items: center;
-    opacity: 0; /* Começa invisível... */
-    transition: opacity 4s ease; /* ... e sofre um fade-in BEM lento (4s) */
+    width: 100%; 
+    height: 100%;
+    position: relative; /* CRUCIAL: Serve de âncora para os filhos absolute */
+    opacity: 0; /* Começa invisível para o fade-in */
+    transition: opacity 4s ease; /* Fade-in bem lento de 4s */
+    display: block; /* Mudar de flex para block para facilitar o posicionamento absoluto */
 }
 
-/* Placeholder da Arte Cinza */
+/* A Figura Cinza (O Sprite do Tutor) */
 #tutor-sprite {
-    width: 250px;
-    height: 350px;
-    background-color: #333; /* Seu placeholder cinza */
-    margin-bottom: 30px;
+    width: 400px;
+    height: 500px;
+    
+    /* O caminho exato para a sua imagem: */
+    background-image: url('../assets/Unknown_tutorial.png'); 
+    
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center bottom; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
-/* A Caixa de Diálogo Técnica */
+/* A Caixa de Diálogo Monocromática Técnic */
 #tutor-dialogue-box {
-    width: 80%;
-    height: 150px;
-    background-color: #0a0a0a;
-    border: 2px solid #555;
-    color: #ccc;
-    font-family: monospace;
-    font-size: 1.3rem;
-    padding: 20px;
-    margin-bottom: 50px;
-    position: relative;
-    cursor: pointer; /* Indica que dá pra clicar */
+    width: 100%; /* Cobrir toda a largura da tela */
+    height: 200px; /* Aumentar a altura da caixa de diálogo */
+    background-color: #0a0a0a; /* Fundo quase preto para contraste */
+    border: 2px solid #555; /* Borda cinza técnica */
+    color: #ccc; /* Texto cinza claro para leitura */
+    font-family: monospace; /* Fonte técnica */
+    font-size: 1.4rem; /* Aumentar ligeiramente a fonte para melhor legibilidade */
+    padding: 25px; /* Mais espaço interno para o texto não ficar colado na borda */
+    position: absolute; /* Posicionamento absoluto dentro do pai relative */
+    bottom: 0; /* Ancorar na parte inferior da tela */
+    left: 0; /* Ancorar na borda esquerda */
+    z-index: 2; /* Camada de Cima (2) -> Acima do Sprite! */
+    cursor: pointer; /* Indica que dá pra clicar para avançar */
+    box-sizing: border-box; /* Garante que a borda e o padding não aumentem o tamanho total */
 }
 
+/* Setinha piscando no canto */
 #tutor-next {
     position: absolute;
-    bottom: 10px;
-    right: 20px;
+    bottom: 15px;
+    right: 25px;
     color: #fff;
     animation: bounce 1s infinite;
 }

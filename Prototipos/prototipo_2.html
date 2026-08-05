@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Protótipo 2: Global Node Map - Geometry OS</title>
+    <style>
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; }
+        
+        #map-container {
+            width: 600px;
+            height: 600px;
+            border: 2px solid #333;
+            background: rgba(10, 10, 10, 0.9);
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .map-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: #00ff88;
+        }
+
+        /* Botões das Câmeras no Mapa */
+        .node-btn {
+            position: absolute;
+            width: 80px;
+            height: 50px;
+            background: #222;
+            border: 1px solid #fff;
+            color: #fff;
+            font-family: inherit;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .node-btn.ping-active {
+            animation: alertFlash 0.5s infinite alternate;
+        }
+
+        @keyframes alertFlash {
+            from { background: #222; color: #fff; box-shadow: none; }
+            to { background: #ff0000; color: #000; border-color: #ff0000; box-shadow: 0 0 20px #ff0000; }
+        }
+
+        .node-btn.dead {
+            background: #300;
+            color: #f00;
+            border-color: #f00;
+            text-decoration: line-through;
+        }
+
+        /* Posicionamento */
+        #cam1 { top: 50px; left: 260px; }
+        #cam2 { top: 275px; left: 50px; }
+        #cam3 { top: 275px; right: 50px; }
+        #cam4 { bottom: 50px; left: 260px; }
+
+        /* Botão Centralizado */
+        #btn-ping-global {
+            width: 400px;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            border: none;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            transition: 0.2s;
+        }
+
+        #btn-ping-global:hover { box-shadow: 0 0 35px rgba(255, 255, 255, 0.6); transform: scale(1.05); }
+        #btn-ping-global:disabled { background: #444; color: #777; cursor: not-allowed; box-shadow: none; }
+
+        #status-display {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map-container">
+    <div class="map-label">GLOBAL SECURITY NODE MAP v2.4</div>
+    
+    <div id="cam1" class="node-btn">CAM 1</div>
+    <div id="cam2" class="node-btn">CAM 2</div>
+    <div id="cam3" class="node-btn">CAM 3</div>
+    <div id="cam4" class="node-btn dead">CAM 4</div> <!-- Exemplo de câmera morta -->
+</div>
+
+<button id="btn-ping-global">EMITIR PING RADAR GLOBAL</button>
+<div id="status-display">SISTEMA EM ESPERA...</div>
+
+<script>
+    const btn = document.getElementById('btn-ping-global');
+    const status = document.getElementById('status-display');
+    const nodes = {
+        1: document.getElementById('cam1'),
+        2: document.getElementById('cam2'),
+        3: document.getElementById('cam3'),
+        4: document.getElementById('cam4')
+    };
+
+    btn.onclick = () => {
+        btn.disabled = true;
+        // Limpar alertas anteriores
+        Object.values(nodes).forEach(n => n.classList.remove('ping-active'));
+        
+        status.innerText = "ENVIANDO PING RADAR PARA TODOS OS NODES...";
+
+        setTimeout(() => {
+            status.innerText = "SINAL RECEBIDO. ANALISANDO INTERFERÊNCIAS...";
+
+            setTimeout(() => {
+                status.innerText = "SCAN COMPLETO. ANOMALIAS DETECTADAS.";
+                
+                // Simula detecção na CAM 2 (Quadrado) e CAM 3 (Triângulo)
+                nodes[2].classList.add('ping-active');
+                nodes[3].classList.add('ping-active');
+
+                setTimeout(() => {
+                    nodes[2].classList.remove('ping-active');
+                    nodes[3].classList.remove('ping-active');
+                    status.innerText = "SINAL PERDIDO. RECOMENDA-SE NOVO PING.";
+                    btn.disabled = false;
+                }, 5000); // Alerta dura 5 segundos
+                
+            }, 1500);
+        }, 1500);
+    };
+</script>
+
+</body>
+</html>

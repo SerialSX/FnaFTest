@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Five Nights at Geometry</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/terminal.css">
+</head>
+<body>
+
+    <!-- TELA DE MENU -->
+    <div id="menu-screen" class="screen active">
+        <div class="static-overlay"></div>
+        <h1 class="game-title">Five Nights at<br>Geometry</h1>
+        <div class="menu-options">
+            <button id="btn-new-game" class="menu-btn">New Game</button>
+            <button id="btn-continue" class="menu-btn">Continue</button>
+        </div>
+        <p class="copyright">© 2026 Arthur</p>
+    </div>
+
+    <!-- TELA DO JOGO (Escritório) -->
+    <div id="game-screen" class="screen hidden">
+        
+        <!-- O ambiente físico do escritório (Mesa, portas) -->
+        <div id="office-layout">
+            
+            <div class="door-station">
+                <div id="door-left" class="door-placeholder">PORTA ABERTA</div>
+                <div class="controls">
+                    <button id="btn-door-left" class="office-btn">FECHAR PORTA</button>
+                    </div>
+            </div>
+
+            <div class="desk-placeholder">
+                MESA DO GUARDA
+                <div id="notebook-object" class="desk-item" title="Abrir Manual" onclick="openNotebook()">
+                    <span class="notebook-cover">📓 MANUAL</span>
+                </div>
+                <button id="terminal-object" class="desk-item terminal-btn" title="Abrir Terminal (T)" onclick="openTerminal()">
+                    &gt;_ TERMINAL
+                </button>
+            </div>
+
+            <div class="door-station">
+                <div id="door-right" class="door-placeholder">PORTA ABERTA</div>
+                <div class="controls">
+                    <button id="btn-door-right" class="office-btn">FECHAR PORTA</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="tutorial-overlay" class="hidden">
+            
+            <div id="tutorial-loading">
+                <p>INICIALIZANDO SIMULAÇÃO_</p>
+            </div>
+
+            <div id="tutorial-scene" class="hidden">
+                <div id="tutor-sprite"></div>
+
+                <div id="tutor-dialogue-box">
+                    <p id="tutor-text"></p>
+                    <span id="tutor-next" class="hidden">▼</span> 
+                </div>
+            </div>
+        </div>
+
+        <!-- A interface de usuário (UI) que fica por cima de tudo -->
+        <div id="ui-layer">
+            <div class="time-ui">
+                <span id="clock">12:00 AM</span><br>
+                <span id="night">Noite 1</span>
+            </div>
+            
+            <div id="virus-alert" class="hidden">
+                <p>⚠ ERROR: CAMERA FEED CORRUPTED ⚠</p>
+                <button id="btn-open-terminal" class="office-btn" style="border-color: red; color: red;">OPEN TERMINAL</button>
+            </div>
+
+            <div class="battery-ui">
+                Energia: <span id="power">100%</span>
+            </div>
+
+            <div class="firewall-ui">
+                Firewall: <span id="firewall-layers">▮▮▮▮▮</span>
+            </div>
+
+            <div id="broken-systems-ui" class="broken-systems-ui"></div>
+
+            <button id="btn-cameras" class="camera-toggle">ABRIR CÂMERAS</button>
+        </div>
+
+        <div id="camera-system" class="hidden">
+
+            <div class="tablet-static"></div>
+
+            <div id="tablet-sidebar-left" class="tablet-sidebar">
+                <h4>[ DADOS DO SISTEMA ]</h4>
+                <p>Placeholder: Área reservada para futuros logs, inventário ou sensores auxiliares.</p>
+            </div>
+
+            <div id="tablet-center">
+                <div id="map-container">
+                    <div class="map-label">GLOBAL SECURITY NODE MAP v2.4</div>
+                    
+                    <div id="cam1" class="node-btn" data-cam="1">CAM 1</div>
+                    <div id="cam2" class="node-btn" data-cam="2">CAM 2</div>
+                    <div id="cam3" class="node-btn" data-cam="3">CAM 3</div>
+                    <div id="cam4" class="node-btn" data-cam="4">CAM 4</div>
+                </div>
+
+                <button id="btn-ping-global">EMITIR PING RADAR GLOBAL</button>
+                <div id="status-display">SISTEMA EM ESPERA...</div>
+            </div>
+
+            <div id="tablet-sidebar-right" class="tablet-sidebar">
+                <h4>[ CONTROLES DE REDE ]</h4>
+                <p>Placeholder: Área reservada para mecânicas da Noite 6 ou roteamento de energia.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- OVERLAY: MANUAL (NOTEBOOK) -->
+    <div id="notebook-overlay" class="overlay hidden">
+        <div class="notebook">
+            <div class="notebook-header">
+                <span class="notebook-title">MANUAL DE PROCEDIMENTOS — Vol. 1</span>
+                <button id="notebook-close" class="overlay-close">FECHAR ✕</button>
+            </div>
+            <div class="notebook-page" id="notebook-page">
+                <!-- Pages rendered by hexagon.js -->
+            </div>
+            <div class="notebook-nav">
+                <button id="notebook-prev">◀ ANTERIOR</button>
+                <span id="notebook-pageinfo">1 / 1</span>
+                <button id="notebook-next">PRÓXIMA ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY: TERMINAL -->
+    <div id="terminal-overlay" class="overlay hidden">
+        <div class="terminal">
+            <div class="terminal-header">
+                <span>SECURITY TERMINAL v0.1 — type 'help' for commands</span>
+                <button id="terminal-close" class="overlay-close">FECHAR ✕</button>
+            </div>
+            <div class="terminal-output" id="terminal-output"></div>
+            <div class="terminal-input-line">
+                <span class="terminal-prompt">root@office:~$</span>
+                <input id="terminal-input" type="text" autocomplete="off" spellcheck="false" />
+            </div>
+        </div>
+    </div>
+
+    <!-- OVERLAY: CIRCUIT PUZZLE (FIREWALL REPAIR) -->
+    <div id="puzzle-overlay" class="overlay hidden">
+        <div class="puzzle">
+            <div class="puzzle-header">
+                <span>RESTORE FIREWALL LAYER — Match the truth table</span>
+                <button id="puzzle-close" class="overlay-close">CANCELAR ✕</button>
+            </div>
+            <div class="puzzle-body">
+                <div class="truth-table">
+                    <h3>TARGET OUTPUT</h3>
+                    <table id="puzzle-truth-table"></table>
+                </div>
+                <div class="gate-options">
+                    <h3>SELECT THE GATE</h3>
+                    <div id="puzzle-gates"></div>
+                </div>
+            </div>
+            <div class="puzzle-footer" id="puzzle-feedback"></div>
+        </div>
+    </div>
+
+    <script src="js/square.js"></script>
+    <script src="js/triangle.js"></script>
+    <script src="js/circle.js"></script>
+    <script src="js/hexagon.js"></script>
+    
+    <script src="js/notebook.js"></script>
+    <script src="js/puzzle.js"></script>
+    <script src="js/terminal.js"></script>
+    
+    <script src="js/camera.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/minigame.js"></script>
+    
+    <script src="js/tutorial.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/main.js"></script>
+    
+    </body>
+</html>

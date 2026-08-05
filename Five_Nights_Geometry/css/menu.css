@@ -1,0 +1,92 @@
+/* Centraliza tudo e cria o layout do menu */
+#menu-screen {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 10%;
+    
+    /* TRUQUE DA OPACIDADE: O linear-gradient aplica uma película preta de 30% sobre a imagem */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../assets/Menu.png'); 
+    
+    background-size: cover; 
+    background-position: 295px 0px; /* Mantive o seu ajuste de posição! */
+    background-repeat: no-repeat;
+    background-color: #000; /* Fundo base preto */
+}
+
+/* Criando a classe que o JavaScript vai ativar para o Glitch */
+#menu-screen.glitched {
+    background-image: 
+        linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%),
+        url('../assets/Menu_.png');
+}
+
+/* Estilo do título */
+.game-title {
+    font-size: 4rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3); /* Um brilho fantasmagórico leve */
+
+    animation: flicker 4s infinite alternate;
+}
+
+/* Organiza os botões em coluna */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaço entre os botões */
+    margin-bottom: 50px;
+}
+
+/* Tira a cara de botão de Windows e deixa parecendo texto clicável */
+.menu-btn {
+    background: none;
+    border: none;
+    color: #aaaaaa;
+    font-family: inherit;
+    font-size: 2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.2s ease; /* Animação suave ao passar o mouse */
+}
+
+/* Efeito quando passa o mouse por cima (Hover) */
+.menu-btn:hover {
+    color: #ffffff;
+}
+
+/* Os direitos autorais lá no cantinho */
+.copyright {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Animação de falha na luz (Flicker) */
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+        text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+    }
+    20%, 24%, 55% {
+        opacity: 0.3;
+        text-shadow: none;
+    }
+}
+
+.static-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://media1.tenor.com/m/T9lxlTwR_JIAAAAC/tv-static.gif'); /* GIF provisório da internet */
+    opacity: 0.05; /* Bem fraquinho só para dar o clima */
+    pointer-events: none; /* Faz o clique do mouse "atravessar" a estática */
+    z-index: 100; /* Garante que fica por cima de tudo */
+}

@@ -1,0 +1,153 @@
+/* ========================================== */
+/* ESTILOS DO TERMINAL HACKER                 */
+/* ========================================== */
+
+/* Fundo da tela e fonte principal */
+#terminal-screen {
+    background-color: #050505; /* Um preto quase absoluto, mas não 100% */
+    color: #00ff00; /* Verde neon clássico de Matrix */
+    font-family: 'Courier New', Courier, monospace;
+    padding: 40px;
+    z-index: 50; /* Garante que fique por cima do escritório */
+}
+
+/* O contêiner dos textos para dar o brilho (Glow) */
+#terminal-content {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6); /* Brilho verde em volta das letras */
+}
+
+/* O cabeçalho com o sys.admin */
+#terminal-header {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #005500;
+    padding-bottom: 10px;
+}
+
+/* Animação do cursor piscando (_) */
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% { opacity: 0; }
+}
+
+/* Estilo dos textos que vão aparecer no corpo do terminal */
+#terminal-body {
+    margin-bottom: 30px;
+}
+
+#terminal-body p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* A mágica: Efeito de linhas horizontais de TV antiga (Scanlines) */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px; /* A espessura das linhas */
+    pointer-events: none; /* Muito importante: impede que as linhas bloqueiem os cliques do mouse */
+    z-index: 1;
+}
+
+/* Estilo da caixa onde o jogador vai digitar os comandos */
+#terminal-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #00ff00; /* Só uma linha embaixo, igual prompt de comando */
+    color: #00ff00;
+    font-family: inherit;
+    font-size: 1.2rem;
+    width: 80%;
+    padding: 5px;
+    outline: none; /* Tira aquela borda azul padrão do Windows quando clica */
+    text-shadow: inherit;
+}
+
+/* Efeito quando o jogador focar na caixa de texto */
+#terminal-input:focus {
+    background-color: rgba(0, 255, 0, 0.05);
+}
+
+/* ========================================== */
+/* ESTILO MATRIX NO TERMINAL DO LAUAN         */
+/* ========================================== */
+
+/* A caixa do terminal */
+.terminal {
+    background-color: #050505 !important;
+    color: #00ff00 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    text-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+    border: 2px solid #005500 !important;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    /* Garante que o texto tenha o brilho neon */
+}
+
+/* O cabeçalho e o botão de fechar */
+.terminal-header {
+    background-color: #00ff00 !important; /* Fundo verde neon */
+    color: #000000 !important; /* Letra preta */
+    border-bottom: 2px solid #005500 !important;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+.terminal-header span {
+    color: #000000 !important; /* Força o título a ficar preto */
+}
+
+.terminal-header .overlay-close {
+    background: transparent !important;
+    color: #000000 !important; /* Força o X a ficar preto */
+    border: 1px solid #000000 !important;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.terminal-header .overlay-close:hover {
+    background-color: #000000 !important;
+    color: #00ff00 !important;
+}
+
+/* O input onde ele vai digitar */
+.terminal-input-line input {
+    background: transparent !important;
+    border: none !important;
+    color: #00ff00 !important;
+    font-family: inherit !important;
+    font-size: 1.2rem;
+    outline: none !important;
+    text-shadow: inherit;
+}
+
+/* Palavras geradas no minigame (O nosso código de ontem) */
+.palavra-minigame {
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px 15px;
+    padding: 2px 5px;
+    border: 1px dashed transparent;
+    transition: all 0.2s ease;
+}
+
+.palavra-minigame:hover {
+    color: #000 !important;
+    background-color: #00ff00 !important;
+    border: 1px dashed #000 !important;
+}

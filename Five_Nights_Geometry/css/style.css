@@ -1,0 +1,31 @@
+/* Reset Básico e Estilo Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000; /* Fundo preto essencial para terror */
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace; /* Fonte com cara de sistema antigo */
+    overflow: hidden; /* Impede que a tela crie barra de rolagem */
+    user-select: none; /* Impede que o jogador selecione textos sem querer */
+}
+
+/* Sistema de Telas */
+.screen {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.active {
+    display: flex;
+}
